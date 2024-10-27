@@ -1,0 +1,585 @@
+{
+  "version": "5",
+  "dialect": "mysql",
+  "id": "e99379f2-cc80-4d02-98be-71a94d5c39a6",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "tables": {
+    "dosen": {
+      "name": "dosen",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nip": {
+          "name": "nip",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kode_dosen": {
+          "name": "kode_dosen",
+          "type": "varchar(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nama_dosen": {
+          "name": "nama_dosen",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tempat_lahir": {
+          "name": "tempat_lahir",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tanggal_lahir": {
+          "name": "tanggal_lahir",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "jurusanId": {
+          "name": "jurusanId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "bidang_keahlian": {
+          "name": "bidang_keahlian",
+          "type": "longtext",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "alamat": {
+          "name": "alamat",
+          "type": "longtext",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "jenis_kelamin": {
+          "name": "jenis_kelamin",
+          "type": "enum('none','laki-laki','perempuan')",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'none'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "dosen_jurusanId_jurusan_id_fk": {
+          "name": "dosen_jurusanId_jurusan_id_fk",
+          "tableFrom": "dosen",
+          "tableTo": "jurusan",
+          "columnsFrom": [
+            "jurusanId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "dosen_id": {
+          "name": "dosen_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "dosen_nip_unique": {
+          "name": "dosen_nip_unique",
+          "columns": [
+            "nip"
+          ]
+        },
+        "dosen_kode_dosen_unique": {
+          "name": "dosen_kode_dosen_unique",
+          "columns": [
+            "kode_dosen"
+          ]
+        },
+        "dosen_email_unique": {
+          "name": "dosen_email_unique",
+          "columns": [
+            "email"
+          ]
+        },
+        "dosen_password_unique": {
+          "name": "dosen_password_unique",
+          "columns": [
+            "password"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "jurusan": {
+      "name": "jurusan",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nama_jurusan": {
+          "name": "nama_jurusan",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "jurusan_id": {
+          "name": "jurusan_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "kelas": {
+      "name": "kelas",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nama_kelas": {
+          "name": "nama_kelas",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "kelas_id": {
+          "name": "kelas_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "mahasiswa": {
+      "name": "mahasiswa",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nim": {
+          "name": "nim",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "nama_mahasiswa": {
+          "name": "nama_mahasiswa",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tempat_lahir": {
+          "name": "tempat_lahir",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tanggal_lahir": {
+          "name": "tanggal_lahir",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "kelasId": {
+          "name": "kelasId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "jurusanId": {
+          "name": "jurusanId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "alamat": {
+          "name": "alamat",
+          "type": "longtext",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "jenis_kelamin": {
+          "name": "jenis_kelamin",
+          "type": "enum('none','laki-laki','perempuan')",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'none'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mahasiswa_kelasId_kelas_id_fk": {
+          "name": "mahasiswa_kelasId_kelas_id_fk",
+          "tableFrom": "mahasiswa",
+          "tableTo": "kelas",
+          "columnsFrom": [
+            "kelasId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mahasiswa_jurusanId_jurusan_id_fk": {
+          "name": "mahasiswa_jurusanId_jurusan_id_fk",
+          "tableFrom": "mahasiswa",
+          "tableTo": "jurusan",
+          "columnsFrom": [
+            "jurusanId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "mahasiswa_id": {
+          "name": "mahasiswa_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {
+        "mahasiswa_nim_unique": {
+          "name": "mahasiswa_nim_unique",
+          "columns": [
+            "nim"
+          ]
+        },
+        "mahasiswa_email_unique": {
+          "name": "mahasiswa_email_unique",
+          "columns": [
+            "email"
+          ]
+        },
+        "mahasiswa_username_unique": {
+          "name": "mahasiswa_username_unique",
+          "columns": [
+            "username"
+          ]
+        },
+        "mahasiswa_password_unique": {
+          "name": "mahasiswa_password_unique",
+          "columns": [
+            "password"
+          ]
+        }
+      },
+      "checkConstraint": {}
+    },
+    "mata_kuliah": {
+      "name": "mata_kuliah",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nama_matkul": {
+          "name": "nama_matkul",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "dosenId": {
+          "name": "dosenId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "jurusanId": {
+          "name": "jurusanId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "kelasId": {
+          "name": "kelasId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mata_kuliah_dosenId_dosen_id_fk": {
+          "name": "mata_kuliah_dosenId_dosen_id_fk",
+          "tableFrom": "mata_kuliah",
+          "tableTo": "dosen",
+          "columnsFrom": [
+            "dosenId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mata_kuliah_jurusanId_jurusan_id_fk": {
+          "name": "mata_kuliah_jurusanId_jurusan_id_fk",
+          "tableFrom": "mata_kuliah",
+          "tableTo": "jurusan",
+          "columnsFrom": [
+            "jurusanId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "mata_kuliah_kelasId_kelas_id_fk": {
+          "name": "mata_kuliah_kelasId_kelas_id_fk",
+          "tableFrom": "mata_kuliah",
+          "tableTo": "kelas",
+          "columnsFrom": [
+            "kelasId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "mata_kuliah_id": {
+          "name": "mata_kuliah_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "nilai": {
+      "name": "nilai",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nilai": {
+          "name": "nilai",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "tugasMahasiswaId": {
+          "name": "tugasMahasiswaId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nilai_tugasMahasiswaId_tugas_mahasiswa_id_fk": {
+          "name": "nilai_tugasMahasiswaId_tugas_mahasiswa_id_fk",
+          "tableFrom": "nilai",
+          "tableTo": "tugas_mahasiswa",
+          "columnsFrom": [
+            "tugasMahasiswaId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "nilai_id": {
+          "name": "nilai_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "tugas_mahasiswa": {
+      "name": "tugas_mahasiswa",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "nama_tugas": {
+          "name": "nama_tugas",
+          "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "mataKuliahId": {
+          "name": "mataKuliahId",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "desc": {
+          "name": "desc",
+          "type": "longtext",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "deadline": {
+          "name": "deadline",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tugas_mahasiswa_mataKuliahId_mata_kuliah_id_fk": {
+          "name": "tugas_mahasiswa_mataKuliahId_mata_kuliah_id_fk",
+          "tableFrom": "tugas_mahasiswa",
+          "tableTo": "mata_kuliah",
+          "columnsFrom": [
+            "mataKuliahId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "tugas_mahasiswa_id": {
+          "name": "tugas_mahasiswa_id",
+          "columns": [
+            "id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    }
+  },
+  "views": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "tables": {},
+    "indexes": {}
+  }
+}
