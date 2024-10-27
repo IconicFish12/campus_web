@@ -1,14 +1,14 @@
-import { mysqlTable as table } from "drizzle-orm/mysql-core";
-import * as item from "drizzle-orm/mysql-core";
+import { pgTable as table } from "drizzle-orm/pg-core";
+import * as item from "drizzle-orm/pg-core";
 import { mataKuliah } from "./mata_kuliah";
 import { relations } from "drizzle-orm";
 import { nilai } from "./nilai";
 
 export const tugas_mahasiswa = table("tugas_mahasiswa", {
-  id: item.int().primaryKey().autoincrement(),
+  id: item.integer().primaryKey(),
   nama_tugas: item.varchar({ length: 256 }).notNull(),
-  mataKuliahId: item.int().references(() => mataKuliah.id),
-  desc: item.longtext().notNull(),
+  mataKuliahId: item.integer().references(() => mataKuliah.id),
+  desc: item.text().notNull(),
   deadline: item.date().notNull(),
 });
 

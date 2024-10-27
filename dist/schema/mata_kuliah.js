@@ -24,19 +24,19 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mataKuliahRelation = exports.mataKuliah = void 0;
-const mysql_core_1 = require("drizzle-orm/mysql-core");
-const item = __importStar(require("drizzle-orm/mysql-core"));
+const pg_core_1 = require("drizzle-orm/pg-core");
+const item = __importStar(require("drizzle-orm/pg-core"));
 const jurusan_1 = require("./jurusan");
 const dosen_1 = require("./dosen");
 const kelas_1 = require("./kelas");
 const drizzle_orm_1 = require("drizzle-orm");
 const tugas_mahasiswa_1 = require("./tugas_mahasiswa");
-exports.mataKuliah = (0, mysql_core_1.mysqlTable)("mata_kuliah", {
-    id: item.int().primaryKey().autoincrement(),
+exports.mataKuliah = (0, pg_core_1.pgTable)("mata_kuliah", {
+    id: item.integer().primaryKey(),
     nama_matkul: item.varchar({ length: 256 }).notNull(),
-    dosenId: item.int().references(() => dosen_1.dosen.id),
-    jurusanId: item.int().references(() => jurusan_1.jurusan.id),
-    kelasId: item.int().references(() => kelas_1.kelas.id),
+    dosenId: item.integer().references(() => dosen_1.dosen.id),
+    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
+    kelasId: item.integer().references(() => kelas_1.kelas.id),
 });
 exports.mataKuliahRelation = (0, drizzle_orm_1.relations)(exports.mataKuliah, ({ many, one }) => ({
     dosen: one(dosen_1.dosen, {

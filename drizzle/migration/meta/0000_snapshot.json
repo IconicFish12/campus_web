@@ -1,95 +1,84 @@
 {
-  "version": "5",
-  "dialect": "mysql",
-  "id": "e99379f2-cc80-4d02-98be-71a94d5c39a6",
+  "id": "cf4c943b-0e03-4a98-ae17-55f722e89cef",
   "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
   "tables": {
-    "dosen": {
+    "public.dosen": {
       "name": "dosen",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nip": {
           "name": "nip",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "kode_dosen": {
           "name": "kode_dosen",
           "type": "varchar(3)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "nama_dosen": {
           "name": "nama_dosen",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "tempat_lahir": {
           "name": "tempat_lahir",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "tanggal_lahir": {
           "name": "tanggal_lahir",
           "type": "date",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "jurusanId": {
           "name": "jurusanId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "bidang_keahlian": {
           "name": "bidang_keahlian",
-          "type": "longtext",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "alamat": {
           "name": "alamat",
-          "type": "longtext",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "email": {
           "name": "email",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "password": {
           "name": "password",
           "type": "varchar(15)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "jenis_kelamin": {
           "name": "jenis_kelamin",
-          "type": "enum('none','laki-laki','perempuan')",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": "'none'"
         }
       },
@@ -109,190 +98,160 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "dosen_id": {
-          "name": "dosen_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "dosen_nip_unique": {
           "name": "dosen_nip_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "nip"
           ]
         },
         "dosen_kode_dosen_unique": {
           "name": "dosen_kode_dosen_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "kode_dosen"
           ]
         },
         "dosen_email_unique": {
           "name": "dosen_email_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email"
           ]
         },
         "dosen_password_unique": {
           "name": "dosen_password_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "password"
           ]
         }
       },
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "jurusan": {
+    "public.jurusan": {
       "name": "jurusan",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nama_jurusan": {
           "name": "nama_jurusan",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "jurusan_id": {
-          "name": "jurusan_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "kelas": {
+    "public.kelas": {
       "name": "kelas",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nama_kelas": {
           "name": "nama_kelas",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "kelas_id": {
-          "name": "kelas_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "mahasiswa": {
+    "public.mahasiswa": {
       "name": "mahasiswa",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nim": {
           "name": "nim",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "nama_mahasiswa": {
           "name": "nama_mahasiswa",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "tempat_lahir": {
           "name": "tempat_lahir",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "tanggal_lahir": {
           "name": "tanggal_lahir",
           "type": "date",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "kelasId": {
           "name": "kelasId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "jurusanId": {
           "name": "jurusanId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "alamat": {
           "name": "alamat",
-          "type": "longtext",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "email": {
           "name": "email",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "username": {
           "name": "username",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "password": {
           "name": "password",
           "type": "varchar(15)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "jenis_kelamin": {
           "name": "jenis_kelamin",
-          "type": "enum('none','laki-laki','perempuan')",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false,
           "default": "'none'"
         }
       },
@@ -325,79 +284,72 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "mahasiswa_id": {
-          "name": "mahasiswa_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {
         "mahasiswa_nim_unique": {
           "name": "mahasiswa_nim_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "nim"
           ]
         },
         "mahasiswa_email_unique": {
           "name": "mahasiswa_email_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "email"
           ]
         },
         "mahasiswa_username_unique": {
           "name": "mahasiswa_username_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "username"
           ]
         },
         "mahasiswa_password_unique": {
           "name": "mahasiswa_password_unique",
+          "nullsNotDistinct": false,
           "columns": [
             "password"
           ]
         }
       },
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "mata_kuliah": {
+    "public.mata_kuliah": {
       "name": "mata_kuliah",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nama_matkul": {
           "name": "nama_matkul",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "dosenId": {
           "name": "dosenId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "jurusanId": {
           "name": "jurusanId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "kelasId": {
           "name": "kelasId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {},
@@ -442,40 +394,31 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "mata_kuliah_id": {
-          "name": "mata_kuliah_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "nilai": {
+    "public.nilai": {
       "name": "nilai",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nilai": {
           "name": "nilai",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "tugasMahasiswaId": {
           "name": "tugasMahasiswaId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         }
       },
       "indexes": {},
@@ -494,54 +437,43 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "nilai_id": {
-          "name": "nilai_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraint": {}
+      "checkConstraints": {}
     },
-    "tugas_mahasiswa": {
+    "public.tugas_mahasiswa": {
       "name": "tugas_mahasiswa",
+      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
         },
         "nama_tugas": {
           "name": "nama_tugas",
           "type": "varchar(256)",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "mataKuliahId": {
           "name": "mataKuliahId",
-          "type": "int",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
+          "notNull": false
         },
         "desc": {
           "name": "desc",
-          "type": "longtext",
+          "type": "text",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         },
         "deadline": {
           "name": "deadline",
           "type": "date",
           "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
+          "notNull": true
         }
       },
       "indexes": {},
@@ -560,26 +492,18 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "tugas_mahasiswa_id": {
-          "name": "tugas_mahasiswa_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "checkConstraint": {}
+      "checkConstraints": {}
     }
   },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
   "views": {},
   "_meta": {
+    "columns": {},
     "schemas": {},
-    "tables": {},
-    "columns": {}
-  },
-  "internal": {
-    "tables": {},
-    "indexes": {}
+    "tables": {}
   }
 }

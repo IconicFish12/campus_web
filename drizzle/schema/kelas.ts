@@ -1,11 +1,11 @@
 import { relations } from "drizzle-orm";
-import { mysqlTable as table } from "drizzle-orm/mysql-core";
-import * as item from "drizzle-orm/mysql-core";
+import { pgTable as table } from "drizzle-orm/pg-core";
+import * as item from "drizzle-orm/pg-core";
 import { mahasiswa } from "./mahasiswa";
 import { mataKuliah } from "./mata_kuliah";
 
 export const kelas = table("kelas", {
-  id: item.int().primaryKey().autoincrement(),
+  id: item.integer().primaryKey(),
   nama_kelas: item.varchar({ length: 256 }),
 });
 

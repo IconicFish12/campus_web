@@ -24,16 +24,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tugas_mahasiswaRelation = exports.tugas_mahasiswa = void 0;
-const mysql_core_1 = require("drizzle-orm/mysql-core");
-const item = __importStar(require("drizzle-orm/mysql-core"));
+const pg_core_1 = require("drizzle-orm/pg-core");
+const item = __importStar(require("drizzle-orm/pg-core"));
 const mata_kuliah_1 = require("./mata_kuliah");
 const drizzle_orm_1 = require("drizzle-orm");
 const nilai_1 = require("./nilai");
-exports.tugas_mahasiswa = (0, mysql_core_1.mysqlTable)("tugas_mahasiswa", {
-    id: item.int().primaryKey().autoincrement(),
+exports.tugas_mahasiswa = (0, pg_core_1.pgTable)("tugas_mahasiswa", {
+    id: item.integer().primaryKey(),
     nama_tugas: item.varchar({ length: 256 }).notNull(),
-    mataKuliahId: item.int().references(() => mata_kuliah_1.mataKuliah.id),
-    desc: item.longtext().notNull(),
+    mataKuliahId: item.integer().references(() => mata_kuliah_1.mataKuliah.id),
+    desc: item.text().notNull(),
     deadline: item.date().notNull(),
 });
 exports.tugas_mahasiswaRelation = (0, drizzle_orm_1.relations)(exports.tugas_mahasiswa, ({ many, one }) => ({

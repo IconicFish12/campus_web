@@ -24,25 +24,25 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dosenRelation = exports.dosen = void 0;
-const mysql_core_1 = require("drizzle-orm/mysql-core");
-const item = __importStar(require("drizzle-orm/mysql-core"));
+const pg_core_1 = require("drizzle-orm/pg-core");
+const item = __importStar(require("drizzle-orm/pg-core"));
 const jurusan_1 = require("./jurusan");
 const drizzle_orm_1 = require("drizzle-orm");
 const mata_kuliah_1 = require("./mata_kuliah");
-exports.dosen = (0, mysql_core_1.mysqlTable)("dosen", {
-    id: item.int().primaryKey().autoincrement(),
-    nip: item.int().notNull().unique(),
+exports.dosen = (0, pg_core_1.pgTable)("dosen", {
+    id: item.integer().primaryKey(),
+    nip: item.integer().notNull().unique(),
     kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
     nama_dosen: item.varchar({ length: 256 }).notNull(),
     tempat_lahir: item.varchar({ length: 256 }).notNull(),
     tanggal_lahir: item.date().notNull(),
-    jurusanId: item.int().references(() => jurusan_1.jurusan.id),
-    bidang_keahlian: item.longtext().notNull(),
-    alamat: item.longtext().notNull(),
+    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
+    bidang_keahlian: item.text().notNull(),
+    alamat: item.text().notNull(),
     email: item.varchar({ length: 256 }).unique().notNull(),
     password: item.varchar({ length: 15 }).unique().notNull(),
     jenis_kelamin: item
-        .mysqlEnum(["none", "laki-laki", "perempuan"])
+        .varchar({ enum: ["none", "laki-laki", "perempuan"] })
         .default("none"),
 });
 exports.dosenRelation = (0, drizzle_orm_1.relations)(exports.dosen, ({ one, many }) => ({

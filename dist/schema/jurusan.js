@@ -25,13 +25,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.jurusanRelation = exports.jurusan = void 0;
 const drizzle_orm_1 = require("drizzle-orm");
-const mysql_core_1 = require("drizzle-orm/mysql-core");
-const item = __importStar(require("drizzle-orm/mysql-core"));
+const pg_core_1 = require("drizzle-orm/pg-core");
+const item = __importStar(require("drizzle-orm/pg-core"));
 const mahasiswa_1 = require("./mahasiswa");
 const dosen_1 = require("./dosen");
 const mata_kuliah_1 = require("./mata_kuliah");
-exports.jurusan = (0, mysql_core_1.mysqlTable)("jurusan", {
-    id: item.int().primaryKey().autoincrement(),
+exports.jurusan = (0, pg_core_1.pgTable)("jurusan", {
+    id: item.integer().primaryKey(),
     nama_jurusan: item.varchar({ length: 256 }),
 });
 exports.jurusanRelation = (0, drizzle_orm_1.relations)(exports.jurusan, ({ many, one }) => ({
