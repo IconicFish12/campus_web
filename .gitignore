@@ -1,2 +1,12 @@
-node_modules
+# Ignore environment file
 .env
+
+# Ignore node modules
+node_modules/
+
+# Igonring distribution 
+dist/
+
+# Ignoring DB connection
+drizzle.config.ts
+drizzle/index.ts

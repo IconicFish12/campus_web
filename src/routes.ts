@@ -11,6 +11,7 @@ routes.get("/", base.index);
 
 // Mahasiswa Route
 routes.get("/user/mahasiswa/getMahasiswa", user.getMahasiswa)
+routes.post("/user/mahasiswa/createMahasiswa", user.createDataMahasiswa)
 
 // Dosen Routes
 routes.get("/user/dosen/getDosen", user.getDosen)

@@ -4,10 +4,6 @@ import { mahasiswa } from "../../drizzle/schema/mahasiswa";
 import { Request, Response } from "express";
 
 export default class UserController {
-  // constructor() {
-  //   this.getMahasiswa = this.getMahasiswa.bind(this);
-  //   this.getDosen = this.getDosen.bind(this);
-  // }
 
   async getMahasiswa(req: Request, res: Response): Promise<void> {
     try {
@@ -57,5 +53,14 @@ export default class UserController {
         message: "Error fetching data",
       });
     }
+  }
+
+  async createDataMahasiswa(req : Request, res : Response) : Promise<void> {
+      const request = req.body
+
+      res.json({
+        message : "Body Request",
+        request : request
+      })
   }
 }
