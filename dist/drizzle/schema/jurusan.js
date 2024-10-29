@@ -23,17 +23,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.kelasRelation = exports.kelas = void 0;
+exports.jurusanRelation = exports.jurusan = void 0;
 const drizzle_orm_1 = require("drizzle-orm");
 const pg_core_1 = require("drizzle-orm/pg-core");
 const item = __importStar(require("drizzle-orm/pg-core"));
 const mahasiswa_1 = require("./mahasiswa");
+const dosen_1 = require("./dosen");
 const mata_kuliah_1 = require("./mata_kuliah");
-exports.kelas = (0, pg_core_1.pgTable)("kelas", {
-    id: item.integer().primaryKey(),
-    nama_kelas: item.varchar({ length: 256 }),
+exports.jurusan = (0, pg_core_1.pgTable)("jurusan", {
+    id: item.bigint({ mode: "bigint" }).primaryKey(),
+    nama_jurusan: item.varchar({ length: 256 }),
 });
-exports.kelasRelation = (0, drizzle_orm_1.relations)(exports.kelas, ({ many, one }) => ({
+exports.jurusanRelation = (0, drizzle_orm_1.relations)(exports.jurusan, ({ many, one }) => ({
     mahasiswa: many(mahasiswa_1.mahasiswa),
+    dosen: many(dosen_1.dosen),
     mataKuliah: many(mata_kuliah_1.mataKuliah),
 }));
+//# sourceMappingURL=jurusan.js.map

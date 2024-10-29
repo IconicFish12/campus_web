@@ -30,7 +30,7 @@ const kelas_1 = require("./kelas");
 const jurusan_1 = require("./jurusan");
 const drizzle_orm_1 = require("drizzle-orm");
 exports.mahasiswa = (0, pg_core_1.pgTable)("mahasiswa", {
-    id: item.integer().primaryKey(),
+    id: item.bigint({ mode: "bigint" }).primaryKey(),
     nim: item.integer().notNull().unique(),
     nama_mahasiswa: item.varchar({ length: 256 }).notNull(),
     tempat_lahir: item.varchar({ length: 256 }).notNull(),
@@ -55,3 +55,4 @@ exports.mahasiswaRelation = (0, drizzle_orm_1.relations)(exports.mahasiswa, ({ o
         references: [jurusan_1.jurusan.id],
     }),
 }));
+//# sourceMappingURL=mahasiswa.js.map

@@ -4,7 +4,7 @@ import { tugas_mahasiswa } from "./tugas_mahasiswa";
 import { relations } from "drizzle-orm";
 
 export const nilai = table("nilai", {
-  id: item.integer().primaryKey(),
+  id: item.bigint({ mode : "bigint" }).primaryKey(),
   nilai: item.integer().notNull(),
   tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa.id),
 });

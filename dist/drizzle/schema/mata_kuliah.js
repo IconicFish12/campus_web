@@ -23,19 +23,28 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.jurusanRelation = exports.jurusan = void 0;
-const drizzle_orm_1 = require("drizzle-orm");
+exports.mataKuliahRelation = exports.mataKuliah = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 const item = __importStar(require("drizzle-orm/pg-core"));
-const mahasiswa_1 = require("./mahasiswa");
+const jurusan_1 = require("./jurusan");
 const dosen_1 = require("./dosen");
-const mata_kuliah_1 = require("./mata_kuliah");
-exports.jurusan = (0, pg_core_1.pgTable)("jurusan", {
-    id: item.integer().primaryKey(),
-    nama_jurusan: item.varchar({ length: 256 }),
+const kelas_1 = require("./kelas");
+const drizzle_orm_1 = require("drizzle-orm");
+const tugas_mahasiswa_1 = require("./tugas_mahasiswa");
+exports.mataKuliah = (0, pg_core_1.pgTable)("mata_kuliah", {
+    id: item.bigint({ mode: "bigint" }).primaryKey(),
+    nama_matkul: item.varchar({ length: 256 }).notNull(),
+    dosenId: item.integer().references(() => dosen_1.dosen.id),
+    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
+    kelasId: item.integer().references(() => kelas_1.kelas.id),
 });
-exports.jurusanRelation = (0, drizzle_orm_1.relations)(exports.jurusan, ({ many, one }) => ({
-    mahasiswa: many(mahasiswa_1.mahasiswa),
-    dosen: many(dosen_1.dosen),
-    mataKuliah: many(mata_kuliah_1.mataKuliah),
+exports.mataKuliahRelation = (0, drizzle_orm_1.relations)(exports.mataKuliah, ({ many, one }) => ({
+    dosen: one(dosen_1.dosen, {
+        fields: [exports.mataKuliah.dosenId],
+        references: [dosen_1.dosen.id],
+    }),
+    jurusan: many(jurusan_1.jurusan),
+    kelas: many(kelas_1.kelas),
+    tugas_mahasiswa: many(tugas_mahasiswa_1.tugas_mahasiswa),
 }));
+//# sourceMappingURL=mata_kuliah.js.map

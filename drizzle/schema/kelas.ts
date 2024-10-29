@@ -5,7 +5,7 @@ import { mahasiswa } from "./mahasiswa";
 import { mataKuliah } from "./mata_kuliah";
 
 export const kelas = table("kelas", {
-  id: item.integer().primaryKey(),
+  id: item.bigint({ mode : "bigint" }).primaryKey(),
   nama_kelas: item.varchar({ length: 256 }),
 });
 

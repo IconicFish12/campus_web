@@ -23,23 +23,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tugas_mahasiswaRelation = exports.tugas_mahasiswa = void 0;
+exports.nilaiRelation = exports.nilai = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 const item = __importStar(require("drizzle-orm/pg-core"));
-const mata_kuliah_1 = require("./mata_kuliah");
+const tugas_mahasiswa_1 = require("./tugas_mahasiswa");
 const drizzle_orm_1 = require("drizzle-orm");
-const nilai_1 = require("./nilai");
-exports.tugas_mahasiswa = (0, pg_core_1.pgTable)("tugas_mahasiswa", {
-    id: item.integer().primaryKey(),
-    nama_tugas: item.varchar({ length: 256 }).notNull(),
-    mataKuliahId: item.integer().references(() => mata_kuliah_1.mataKuliah.id),
-    desc: item.text().notNull(),
-    deadline: item.date().notNull(),
+exports.nilai = (0, pg_core_1.pgTable)("nilai", {
+    id: item.bigint({ mode: "bigint" }).primaryKey(),
+    nilai: item.integer().notNull(),
+    tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa_1.tugas_mahasiswa.id),
 });
-exports.tugas_mahasiswaRelation = (0, drizzle_orm_1.relations)(exports.tugas_mahasiswa, ({ many, one }) => ({
-    mataKuliah: one(mata_kuliah_1.mataKuliah, {
-        fields: [exports.tugas_mahasiswa.mataKuliahId],
-        references: [mata_kuliah_1.mataKuliah.id],
+exports.nilaiRelation = (0, drizzle_orm_1.relations)(exports.nilai, ({ many, one }) => ({
+    tugas_mahasiswa: one(tugas_mahasiswa_1.tugas_mahasiswa, {
+        fields: [exports.nilai.tugasMahasiswaId],
+        references: [tugas_mahasiswa_1.tugas_mahasiswa.id],
     }),
-    nilai: one(nilai_1.nilai),
 }));
+//# sourceMappingURL=nilai.js.map

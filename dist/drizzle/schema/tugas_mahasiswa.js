@@ -23,32 +23,24 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.dosenRelation = exports.dosen = void 0;
+exports.tugas_mahasiswaRelation = exports.tugas_mahasiswa = void 0;
 const pg_core_1 = require("drizzle-orm/pg-core");
 const item = __importStar(require("drizzle-orm/pg-core"));
-const jurusan_1 = require("./jurusan");
-const drizzle_orm_1 = require("drizzle-orm");
 const mata_kuliah_1 = require("./mata_kuliah");
-exports.dosen = (0, pg_core_1.pgTable)("dosen", {
-    id: item.integer().primaryKey(),
-    nip: item.integer().notNull().unique(),
-    kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
-    nama_dosen: item.varchar({ length: 256 }).notNull(),
-    tempat_lahir: item.varchar({ length: 256 }).notNull(),
-    tanggal_lahir: item.date().notNull(),
-    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
-    bidang_keahlian: item.text().notNull(),
-    alamat: item.text().notNull(),
-    email: item.varchar({ length: 256 }).unique().notNull(),
-    password: item.varchar({ length: 15 }).unique().notNull(),
-    jenis_kelamin: item
-        .varchar({ enum: ["none", "laki-laki", "perempuan"] })
-        .default("none"),
+const drizzle_orm_1 = require("drizzle-orm");
+const nilai_1 = require("./nilai");
+exports.tugas_mahasiswa = (0, pg_core_1.pgTable)("tugas_mahasiswa", {
+    id: item.bigint({ mode: "bigint" }).primaryKey(),
+    nama_tugas: item.varchar({ length: 256 }).notNull(),
+    mataKuliahId: item.integer().references(() => mata_kuliah_1.mataKuliah.id),
+    desc: item.text().notNull(),
+    deadline: item.date().notNull(),
 });
-exports.dosenRelation = (0, drizzle_orm_1.relations)(exports.dosen, ({ one, many }) => ({
-    jurusan: one(jurusan_1.jurusan, {
-        fields: [exports.dosen.jurusanId],
-        references: [jurusan_1.jurusan.id],
+exports.tugas_mahasiswaRelation = (0, drizzle_orm_1.relations)(exports.tugas_mahasiswa, ({ many, one }) => ({
+    mataKuliah: one(mata_kuliah_1.mataKuliah, {
+        fields: [exports.tugas_mahasiswa.mataKuliahId],
+        references: [mata_kuliah_1.mataKuliah.id],
     }),
-    mataKuliah: many(mata_kuliah_1.mataKuliah),
+    nilai: one(nilai_1.nilai),
 }));
+//# sourceMappingURL=tugas_mahasiswa.js.map

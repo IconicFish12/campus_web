@@ -1,11 +1,10 @@
 {
   "name": "campus_js",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.ts",
+  "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon .",
     "build": "tsc",
     "generate": "drizzle-kit generate",
     "push": "drizzle-kit push",
@@ -25,6 +24,9 @@
     "pg": "^8.13.1"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
     "@types/pg": "^8.11.10",
     "drizzle-kit": "^0.26.2",
     "ts-node": "^10.9.2",

@@ -5,7 +5,7 @@ import { relations } from "drizzle-orm";
 import { mataKuliah } from "./mata_kuliah";
 
 export const dosen = table("dosen", {
-  id: item.integer().primaryKey(),
+  id: item.bigint({ mode : "bigint" }).primaryKey(),
   nip: item.integer().notNull().unique(),
   kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
   nama_dosen: item.varchar({ length: 256 }).notNull(),

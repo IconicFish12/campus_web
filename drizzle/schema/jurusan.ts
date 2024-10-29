@@ -6,7 +6,7 @@ import { dosen } from "./dosen";
 import { mataKuliah } from "./mata_kuliah";
 
 export const jurusan = table("jurusan", {
-  id: item.integer().primaryKey(),
+  id: item.bigint({ mode : "bigint" }).primaryKey(),
   nama_jurusan: item.varchar({ length: 256 }),
 });
 

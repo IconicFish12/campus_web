@@ -5,7 +5,7 @@ import { relations } from "drizzle-orm";
 import { nilai } from "./nilai";
 
 export const tugas_mahasiswa = table("tugas_mahasiswa", {
-  id: item.integer().primaryKey(),
+  id: item.bigint({ mode : "bigint" }).primaryKey(),
   nama_tugas: item.varchar({ length: 256 }).notNull(),
   mataKuliahId: item.integer().references(() => mataKuliah.id),
   desc: item.text().notNull(),
