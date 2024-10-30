@@ -2,10 +2,10 @@ import { pgTable as table } from "drizzle-orm/pg-core";
 import * as item from "drizzle-orm/pg-core";
 import { kelas } from "./kelas";
 import { jurusan } from "./jurusan";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 
 export const mahasiswa = table("mahasiswa", {
-  id: item.bigint({ mode : "bigint" }).primaryKey(),
+  id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nim: item.integer().notNull().unique(),
   nama_mahasiswa: item.varchar({ length: 256 }).notNull(),
   tempat_lahir: item.varchar({ length: 256 }).notNull(),

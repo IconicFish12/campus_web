@@ -35,6 +35,6 @@ export const jurusanValidation = joi
 
 export const kelasValidation = joi
   .object({
-    nama_jurusan: joi.string().required(),
+    nama_kelas: joi.string().alphanum().required(),
   })
   .required();

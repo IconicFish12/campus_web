@@ -1,11 +1,12 @@
 import { pgTable as table } from "drizzle-orm/pg-core";
 import * as item from "drizzle-orm/pg-core";
 import { jurusan } from "./jurusan";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { mataKuliah } from "./mata_kuliah";
+import { kelas } from "./kelas";
 
 export const dosen = table("dosen", {
-  id: item.bigint({ mode : "bigint" }).primaryKey(),
+  id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nip: item.integer().notNull().unique(),
   kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
   nama_dosen: item.varchar({ length: 256 }).notNull(),
@@ -28,4 +29,5 @@ export const dosenRelation = relations(dosen, ({ one, many }) => ({
   }),
 
   mataKuliah: many(mataKuliah),
+  kelas : many(kelas)
 }));

@@ -4,7 +4,6 @@ import { mahasiswa } from "../../drizzle/schema/mahasiswa";
 import { Request, Response } from "express";
 
 export default class UserController {
-
   async getMahasiswa(req: Request, res: Response): Promise<void> {
     try {
       const dataMahasiswa = await db.select().from(mahasiswa);
@@ -22,10 +21,9 @@ export default class UserController {
         data: dataMahasiswa,
       });
     } catch (error) {
-      console.error("Error fetching mahasiswa:", error);
-      res.status(500).json({
-        success: false,
-        message: "Error fetching data",
+      res.json({
+        message: "Terdapat Kesalahan dalam mengambil data",
+        error: error,
       });
     }
   }
@@ -47,20 +45,19 @@ export default class UserController {
         data: dataDosen,
       });
     } catch (error) {
-      console.error("Error fetching dosen:", error);
-      res.status(500).json({
-        success: false,
-        message: "Error fetching data",
+      res.json({
+        message: "Terdapat Kesalahan dalam mengambil data",
+        error: error,
       });
     }
   }
 
-  async createDataMahasiswa(req : Request, res : Response) : Promise<void> {
-      const request = req.body
+  async createDataMahasiswa(req: Request, res: Response): Promise<void> {
+    const request = req.body;
 
-      res.json({
-        message : "Body Request",
-        request : request
-      })
+    res.json({
+      message: "Body Request",
+      request: request,
+    });
   }
 }

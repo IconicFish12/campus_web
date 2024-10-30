@@ -3,11 +3,11 @@ import * as item from "drizzle-orm/pg-core";
 import { jurusan } from "./jurusan";
 import { dosen } from "./dosen";
 import { kelas } from "./kelas";
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { tugas_mahasiswa } from "./tugas_mahasiswa";
 
 export const mataKuliah = table("mata_kuliah", {
-  id: item.bigint({ mode : "bigint" }).primaryKey(),
+  id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nama_matkul: item.varchar({ length: 256 }).notNull(),
   dosenId: item.integer().references(() => dosen.id),
   jurusanId: item.integer().references(() => jurusan.id),
