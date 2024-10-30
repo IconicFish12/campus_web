@@ -9,6 +9,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "noEmitOnError": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "baseUrl": ".",
     "lib": ["ES2022", "DOM"],
     "resolveJsonModule": true
   },

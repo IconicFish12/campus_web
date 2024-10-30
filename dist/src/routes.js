@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const BaseController_js_1 = __importDefault(require("./controller/BaseController.js"));
-const UserController_js_1 = __importDefault(require("./controller/UserController.js"));
-const JurusanController_js_1 = __importDefault(require("./controller/JurusanController.js"));
-const KelasController_js_1 = __importDefault(require("./controller/KelasController.js"));
-const base = new BaseController_js_1.default();
-const user = new UserController_js_1.default();
-const jurusan = new JurusanController_js_1.default();
-const kelas = new KelasController_js_1.default();
+const BaseController_1 = __importDefault(require("../src/controller/BaseController"));
+const UserController_1 = __importDefault(require("../src/controller/UserController"));
+const JurusanController_1 = __importDefault(require("../src/controller/JurusanController"));
+const KelasController_1 = __importDefault(require("../src/controller/KelasController"));
+const base = new BaseController_1.default();
+const user = new UserController_1.default();
+const jurusan = new JurusanController_1.default();
+const kelas = new KelasController_1.default();
 const routes = express_1.default.Router();
 // Index Route
 routes.get("/", base.index);

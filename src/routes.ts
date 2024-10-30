@@ -1,8 +1,8 @@
 import express from "express";
-import BaseController from "./controller/BaseController.js";
-import UserController from "./controller/UserController.js";
-import JurusanController from "./controller/JurusanController.js";
-import KelasController from "./controller/KelasController.js";
+import BaseController from "../src/controller/BaseController";
+import UserController from "../src/controller/UserController";
+import JurusanController from "../src/controller/JurusanController";
+import KelasController from "../src/controller/KelasController";
 
 const base = new BaseController();
 const user = new UserController();
