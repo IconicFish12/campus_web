@@ -1,11 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
-const node_postgres_1 = require("drizzle-orm/node-postgres");
+const postgres_1 = require("@vercel/postgres");
+// import { drizzle } from "drizzle-orm/node-postgres";
+const vercel_postgres_1 = require("drizzle-orm/vercel-postgres");
 // import * as schema from './schema';
-exports.db = (0, node_postgres_1.drizzle)({
-    connection: {
-        connectionString: "postgres://postgres:isyawal161104@localhost:5432/campus_app",
-    },
-});
+exports.db = (0, vercel_postgres_1.drizzle)(postgres_1.sql);
 //# sourceMappingURL=index.js.map
