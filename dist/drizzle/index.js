@@ -29,7 +29,7 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 exports.db = (0, node_postgres_1.drizzle)({
     connection: {
-        connectionString: "postgres://postgres:isyawal161104@localhost:5432/campus-application"
-    }
+        connectionString: "postgresql://postgres:pchpRIpPTvpVVhfBmntVlYbBsphGVEzW@junction.proxy.rlwy.net:53533/railway",
+    },
 });
 //# sourceMappingURL=index.js.map
