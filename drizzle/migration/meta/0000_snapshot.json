@@ -1,5 +1,5 @@
 {
-  "id": "cf4c943b-0e03-4a98-ae17-55f722e89cef",
+  "id": "6cae6caf-5260-44c8-a19a-24983ddbab31",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12,7 +12,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "dosen_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nip": {
           "name": "nip",
@@ -139,7 +150,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "jurusan_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nama_jurusan": {
           "name": "nama_jurusan",
@@ -162,17 +184,73 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "kelas_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nama_kelas": {
           "name": "nama_kelas",
-          "type": "varchar(256)",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false
+        },
+        "dosenId": {
+          "name": "dosenId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "jurusanId": {
+          "name": "jurusanId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "jumlahMahasiswa": {
+          "name": "jumlahMahasiswa",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "kelas_dosenId_dosen_id_fk": {
+          "name": "kelas_dosenId_dosen_id_fk",
+          "tableFrom": "kelas",
+          "tableTo": "dosen",
+          "columnsFrom": [
+            "dosenId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "kelas_jurusanId_jurusan_id_fk": {
+          "name": "kelas_jurusanId_jurusan_id_fk",
+          "tableFrom": "kelas",
+          "tableTo": "jurusan",
+          "columnsFrom": [
+            "jurusanId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -185,7 +263,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "mahasiswa_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nim": {
           "name": "nim",
@@ -325,7 +414,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "mata_kuliah_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nama_matkul": {
           "name": "nama_matkul",
@@ -406,7 +506,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "nilai_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nilai": {
           "name": "nilai",
@@ -449,7 +560,18 @@
           "name": "id",
           "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "tugas_mahasiswa_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
         },
         "nama_tugas": {
           "name": "nama_tugas",

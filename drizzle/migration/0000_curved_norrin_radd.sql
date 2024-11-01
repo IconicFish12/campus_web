@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "dosen" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "dosen_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nip" integer NOT NULL,
 	"kode_dosen" varchar(3) NOT NULL,
 	"nama_dosen" varchar(256) NOT NULL,
@@ -18,17 +18,20 @@ CREATE TABLE IF NOT EXISTS "dosen" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "jurusan" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "jurusan_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nama_jurusan" varchar(256)
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "kelas" (
-	"id" integer PRIMARY KEY NOT NULL,
-	"nama_kelas" varchar(256)
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "kelas_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"nama_kelas" varchar(20),
+	"dosenId" integer,
+	"jurusanId" integer,
+	"jumlahMahasiswa" integer NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "mahasiswa" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "mahasiswa_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nim" integer NOT NULL,
 	"nama_mahasiswa" varchar(256) NOT NULL,
 	"tempat_lahir" varchar(256) NOT NULL,
@@ -47,7 +50,7 @@ CREATE TABLE IF NOT EXISTS "mahasiswa" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "mata_kuliah" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "mata_kuliah_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nama_matkul" varchar(256) NOT NULL,
 	"dosenId" integer,
 	"jurusanId" integer,
@@ -55,13 +58,13 @@ CREATE TABLE IF NOT EXISTS "mata_kuliah" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "nilai" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "nilai_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nilai" integer NOT NULL,
 	"tugasMahasiswaId" integer
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "tugas_mahasiswa" (
-	"id" integer PRIMARY KEY NOT NULL,
+	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "tugas_mahasiswa_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
 	"nama_tugas" varchar(256) NOT NULL,
 	"mataKuliahId" integer,
 	"desc" text NOT NULL,
@@ -70,6 +73,18 @@ CREATE TABLE IF NOT EXISTS "tugas_mahasiswa" (
 --> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "dosen" ADD CONSTRAINT "dosen_jurusanId_jurusan_id_fk" FOREIGN KEY ("jurusanId") REFERENCES "public"."jurusan"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "kelas" ADD CONSTRAINT "kelas_dosenId_dosen_id_fk" FOREIGN KEY ("dosenId") REFERENCES "public"."dosen"("id") ON DELETE no action ON UPDATE no action;
+EXCEPTION
+ WHEN duplicate_object THEN null;
+END $$;
+--> statement-breakpoint
+DO $$ BEGIN
+ ALTER TABLE "kelas" ADD CONSTRAINT "kelas_jurusanId_jurusan_id_fk" FOREIGN KEY ("jurusanId") REFERENCES "public"."jurusan"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
