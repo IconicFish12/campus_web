@@ -33,15 +33,18 @@ const kelas_1 = require("./kelas");
 exports.dosen = (0, pg_core_1.pgTable)("dosen", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nip: item.integer().notNull().unique(),
-    kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
+    kode_dosen: item.varchar().unique().notNull(),
     nama_dosen: item.varchar({ length: 256 }).notNull(),
     tempat_lahir: item.varchar({ length: 256 }).notNull(),
     tanggal_lahir: item.date().notNull(),
-    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
+    jurusanId: item
+        .integer()
+        .references(() => jurusan_1.jurusan.id)
+        .default(1),
     bidang_keahlian: item.text().notNull(),
-    alamat: item.text().notNull(),
+    alamat: item.text(),
     email: item.varchar({ length: 256 }).unique().notNull(),
-    password: item.varchar({ length: 15 }).unique().notNull(),
+    password: item.varchar().notNull(),
     jenis_kelamin: item
         .varchar({ enum: ["none", "laki-laki", "perempuan"] })
         .default("none"),
@@ -52,6 +55,6 @@ exports.dosenRelation = (0, drizzle_orm_1.relations)(exports.dosen, ({ one, many
         references: [jurusan_1.jurusan.id],
     }),
     mataKuliah: many(mata_kuliah_1.mataKuliah),
-    kelas: many(kelas_1.kelas)
+    kelas: many(kelas_1.kelas),
 }));
 //# sourceMappingURL=dosen.js.map

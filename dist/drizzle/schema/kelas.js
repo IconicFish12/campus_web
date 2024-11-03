@@ -34,8 +34,8 @@ const dosen_1 = require("./dosen");
 exports.kelas = (0, pg_core_1.pgTable)("kelas", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nama_kelas: item.varchar({ length: 20 }),
-    dosenId: item.integer().references(() => dosen_1.dosen.id),
-    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
+    dosenId: item.integer().references(() => dosen_1.dosen.id).default(1),
+    jurusanId: item.integer().references(() => jurusan_1.jurusan.id).default(1),
     jumlahMahasiswa: item.integer().notNull(),
 });
 exports.kelasRelation = (0, drizzle_orm_1.relations)(exports.kelas, ({ many, one }) => ({

@@ -51,7 +51,7 @@ class JurusanController {
             if (exist.length === 0) {
                 const createData = await drizzle_1.db.insert(jurusan_1.jurusan).values(value).returning();
                 res.json({
-                    message: "Data Kelas Berhasil dibuat",
+                    message: "Data Jurusan Berhasil dibuat",
                     request: createData,
                 });
                 return;
@@ -87,7 +87,7 @@ class JurusanController {
                 .from(jurusan_1.jurusan)
                 .where((0, drizzle_orm_1.eq)(jurusan_1.jurusan.id, parseInt(req.params.id)));
             if (existingData.length === 0) {
-                res.status(404).json({
+                res.status(200).json({
                     message: "Data Jurusan tidak ditemukan",
                 });
                 return;

@@ -8,6 +8,34 @@
       "when": 1730444387957,
       "tag": "0000_mighty_solo",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1730464769253,
+      "tag": "0001_equal_norman_osborn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1730539119935,
+      "tag": "0002_glamorous_mysterio",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1730541100446,
+      "tag": "0003_lowly_lifeguard",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1730601955862,
+      "tag": "0004_funny_spot",
+      "breakpoints": true
     }
   ]
 }

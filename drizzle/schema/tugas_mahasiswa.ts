@@ -7,7 +7,7 @@ import { nilai } from "./nilai";
 export const tugas_mahasiswa = table("tugas_mahasiswa", {
   id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nama_tugas: item.varchar({ length: 256 }).notNull(),
-  mataKuliahId: item.integer().references(() => mataKuliah.id),
+  mataKuliahId: item.integer().references(() => mataKuliah.id).default(1),
   desc: item.text().notNull(),
   deadline: item.date().notNull(),
 });

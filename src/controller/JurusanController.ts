@@ -58,7 +58,7 @@ export default class JurusanController {
         const createData = await db.insert(jurusan).values(value).returning();
 
         res.json({
-          message: "Data Kelas Berhasil dibuat",
+          message: "Data Jurusan Berhasil dibuat",
           request: createData,
         });
         return;
@@ -98,7 +98,7 @@ export default class JurusanController {
         .where(eq(jurusan.id, parseInt(req.params.id)));
 
       if (existingData.length === 0) {
-        res.status(404).json({
+        res.status(200).json({
           message: "Data Jurusan tidak ditemukan",
         });
         return;

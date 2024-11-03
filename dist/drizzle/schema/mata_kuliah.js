@@ -34,9 +34,9 @@ const tugas_mahasiswa_1 = require("./tugas_mahasiswa");
 exports.mataKuliah = (0, pg_core_1.pgTable)("mata_kuliah", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nama_matkul: item.varchar({ length: 256 }).notNull(),
-    dosenId: item.integer().references(() => dosen_1.dosen.id),
-    jurusanId: item.integer().references(() => jurusan_1.jurusan.id),
-    kelasId: item.integer().references(() => kelas_1.kelas.id),
+    dosenId: item.integer().references(() => dosen_1.dosen.id).default(1),
+    jurusanId: item.integer().references(() => jurusan_1.jurusan.id).default(1),
+    kelasId: item.integer().references(() => kelas_1.kelas.id).default(1),
 });
 exports.mataKuliahRelation = (0, drizzle_orm_1.relations)(exports.mataKuliah, ({ many, one }) => ({
     dosen: one(dosen_1.dosen, {

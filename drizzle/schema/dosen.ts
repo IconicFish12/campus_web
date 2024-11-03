@@ -8,15 +8,18 @@ import { kelas } from "./kelas";
 export const dosen = table("dosen", {
   id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nip: item.integer().notNull().unique(),
-  kode_dosen: item.varchar({ length: 3 }).unique().notNull(),
+  kode_dosen: item.varchar().unique().notNull(),
   nama_dosen: item.varchar({ length: 256 }).notNull(),
   tempat_lahir: item.varchar({ length: 256 }).notNull(),
   tanggal_lahir: item.date().notNull(),
-  jurusanId: item.integer().references(() => jurusan.id),
+  jurusanId: item
+    .integer()
+    .references(() => jurusan.id)
+    .default(1),
   bidang_keahlian: item.text().notNull(),
-  alamat: item.text().notNull(),
+  alamat: item.text(),
   email: item.varchar({ length: 256 }).unique().notNull(),
-  password: item.varchar({ length: 15 }).unique().notNull(),
+  password: item.varchar().notNull(),
   jenis_kelamin: item
     .varchar({ enum: ["none", "laki-laki", "perempuan"] })
     .default("none"),
@@ -29,5 +32,5 @@ export const dosenRelation = relations(dosen, ({ one, many }) => ({
   }),
 
   mataKuliah: many(mataKuliah),
-  kelas : many(kelas)
+  kelas: many(kelas),
 }));

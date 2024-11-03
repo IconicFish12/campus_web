@@ -6,7 +6,7 @@ import { relations, sql } from "drizzle-orm";
 export const nilai = table("nilai", {
   id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nilai: item.integer().notNull(),
-  tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa.id),
+  tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa.id).default(1),
 });
 
 export const nilaiRelation = relations(nilai, ({ many, one }) => ({

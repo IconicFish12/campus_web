@@ -32,7 +32,7 @@ const nilai_1 = require("./nilai");
 exports.tugas_mahasiswa = (0, pg_core_1.pgTable)("tugas_mahasiswa", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nama_tugas: item.varchar({ length: 256 }).notNull(),
-    mataKuliahId: item.integer().references(() => mata_kuliah_1.mataKuliah.id),
+    mataKuliahId: item.integer().references(() => mata_kuliah_1.mataKuliah.id).default(1),
     desc: item.text().notNull(),
     deadline: item.date().notNull(),
 });

@@ -26,10 +26,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
 const node_postgres_1 = require("drizzle-orm/node-postgres");
 const dotenv = __importStar(require("dotenv"));
+// import schema from "./schema";
 dotenv.config();
 exports.db = (0, node_postgres_1.drizzle)({
     connection: {
-        connectionString: "postgresql://postgres:pchpRIpPTvpVVhfBmntVlYbBsphGVEzW@junction.proxy.rlwy.net:53533/railway",
-    },
+        // Production
+        // connectionString:
+        //   "postgresql://postgres:pchpRIpPTvpVVhfBmntVlYbBsphGVEzW@junction.proxy.rlwy.net:53533/railway",
+        // Development
+        connectionString: "postgresql://postgres:isyawal161104@localhost:5432/campus-application",
+    }
 });
 //# sourceMappingURL=index.js.map

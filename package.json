@@ -10,7 +10,7 @@
     "add-build": "git add dist",
     "start": "nodemon dist/src/index.js",
     "generate": "drizzle-kit generate",
-    "push": "drizzle-kit push",
+    "push": "drizzle-kit push --force",
     "pull": "drizzle-kit pull",
     "studio": "drizzle-kit studio"
   },
@@ -19,6 +19,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -29,6 +30,7 @@
     "pg": "^8.13.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/body-parser": "^1.19.5",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",

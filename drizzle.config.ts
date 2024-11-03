@@ -8,11 +8,19 @@ export default defineConfig({
   out: "./drizzle/migration",
   dialect: "postgresql",
   dbCredentials: {
-    database:  "railway",
-    host: "junction.proxy.rlwy.net",
+    // -- Production -- 
+    // database:  "railway",
+    // host: "junction.proxy.rlwy.net",
+    // user: "postgres",
+    // password: "pchpRIpPTvpVVhfBmntVlYbBsphGVEzW",
+    // port:  53533,
+    // ssl: false,
+    //development
+    database:  "campus-application",
+    host: "localhost",
     user: "postgres",
-    password: "pchpRIpPTvpVVhfBmntVlYbBsphGVEzW",
-    port:  53533,
+    password: "isyawal161104",
+    port:  5432,
     ssl: false,
   },
   verbose: true,

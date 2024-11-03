@@ -31,7 +31,7 @@ const drizzle_orm_1 = require("drizzle-orm");
 exports.nilai = (0, pg_core_1.pgTable)("nilai", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nilai: item.integer().notNull(),
-    tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa_1.tugas_mahasiswa.id),
+    tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa_1.tugas_mahasiswa.id).default(1),
 });
 exports.nilaiRelation = (0, drizzle_orm_1.relations)(exports.nilai, ({ many, one }) => ({
     tugas_mahasiswa: one(tugas_mahasiswa_1.tugas_mahasiswa, {
