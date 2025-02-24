@@ -3,9 +3,11 @@ import { db } from "../../drizzle";
 import { jurusan } from "../../drizzle/schema/jurusan";
 import { jurusanValidation } from "../validation";
 import { asc, eq } from "drizzle-orm";
+import BaseController from "./BaseController";
 
-export default class JurusanController {
-  async getJurusan(req: Request, res: Response): Promise<void> {
+export default class JurusanController extends BaseController {
+
+  async getData(req: Request, res: Response): Promise<void> {
     try {
       const dataJurusanKampus = await db
         .select()
@@ -33,7 +35,7 @@ export default class JurusanController {
     }
   }
 
-  async createJurusan(req: Request, res: Response): Promise<void> {
+  async createData(req: Request, res: Response): Promise<void> {
     try {
       const request = req.body;
 
@@ -76,7 +78,7 @@ export default class JurusanController {
     }
   }
 
-  async updateJurusan(req: Request, res: Response): Promise<void> {
+  async updateData(req: Request, res: Response): Promise<void> {
     try {
       const request = req.body;
 
@@ -122,7 +124,7 @@ export default class JurusanController {
     }
   }
 
-  async deleteJurusan(req: Request, res: Response): Promise<void> {
+  async deleteData(req: Request, res: Response): Promise<void> {
     try {
       const existingData = await db
         .select()

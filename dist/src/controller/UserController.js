@@ -17,8 +17,8 @@ class UserController {
             const dataMahasiswa = await drizzle_1.db
                 .select()
                 .from(mahasiswa_1.mahasiswa)
-                .leftJoin(jurusan_1.jurusan, (0, drizzle_orm_1.eq)(dosen_1.dosen.jurusanId, jurusan_1.jurusan.id))
-                .leftJoin(kelas_1.kelas, (0, drizzle_orm_1.eq)(dosen_1.dosen.jurusanId, kelas_1.kelas.id));
+                .leftJoin(jurusan_1.jurusan, (0, drizzle_orm_1.eq)(mahasiswa_1.mahasiswa.jurusanId, jurusan_1.jurusan.id))
+                .leftJoin(kelas_1.kelas, (0, drizzle_orm_1.eq)(mahasiswa_1.mahasiswa.jurusanId, kelas_1.kelas.id));
             if (!dataMahasiswa || dataMahasiswa.length === 0) {
                 res.status(200).json({
                     success: false,

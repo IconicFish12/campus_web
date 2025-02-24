@@ -1,11 +1,15 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const drizzle_1 = require("../../drizzle");
 const jurusan_1 = require("../../drizzle/schema/jurusan");
 const validation_1 = require("../validation");
 const drizzle_orm_1 = require("drizzle-orm");
-class JurusanController {
-    async getJurusan(req, res) {
+const BaseController_1 = __importDefault(require("./BaseController"));
+class JurusanController extends BaseController_1.default {
+    async getData(req, res) {
         try {
             const dataJurusanKampus = await drizzle_1.db
                 .select()
@@ -31,7 +35,7 @@ class JurusanController {
             });
         }
     }
-    async createJurusan(req, res) {
+    async createData(req, res) {
         try {
             const request = req.body;
             const { error, value } = validation_1.jurusanValidation.validate(request, {
@@ -69,7 +73,7 @@ class JurusanController {
             });
         }
     }
-    async updateJurusan(req, res) {
+    async updateData(req, res) {
         try {
             const request = req.body;
             const { error, value } = validation_1.jurusanValidation.validate(request, {
@@ -109,7 +113,7 @@ class JurusanController {
             });
         }
     }
-    async deleteJurusan(req, res) {
+    async deleteData(req, res) {
         try {
             const existingData = await drizzle_1.db
                 .select()

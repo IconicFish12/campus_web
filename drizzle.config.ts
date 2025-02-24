@@ -15,7 +15,7 @@ export default defineConfig({
     // password: "pchpRIpPTvpVVhfBmntVlYbBsphGVEzW",
     // port:  53533,
     // ssl: false,
-    //development
+    // development
     database:  "campus-application",
     host: "localhost",
     user: "postgres",

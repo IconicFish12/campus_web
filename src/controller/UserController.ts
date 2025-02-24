@@ -14,8 +14,8 @@ export default class UserController {
       const dataMahasiswa = await db
         .select()
         .from(mahasiswa)
-        .leftJoin(jurusan, eq(dosen.jurusanId, jurusan.id))
-        .leftJoin(kelas, eq(dosen.jurusanId, kelas.id));
+        .leftJoin(jurusan, eq(mahasiswa.jurusanId, jurusan.id))
+        .leftJoin(kelas, eq(mahasiswa.jurusanId, kelas.id));
 
       if (!dataMahasiswa || dataMahasiswa.length === 0) {
         res.status(200).json({

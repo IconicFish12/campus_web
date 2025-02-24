@@ -3,45 +3,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const drizzle_1 = require("../../drizzle");
-const kelas_1 = require("../../drizzle/schema/kelas");
-const validation_1 = require("../validation");
-const drizzle_orm_1 = require("drizzle-orm");
-const jurusan_1 = require("../../drizzle/schema/jurusan");
-const dosen_1 = require("../../drizzle/schema/dosen");
 const BaseController_1 = __importDefault(require("./BaseController"));
-class KelasController extends BaseController_1.default {
+const drizzle_1 = require("../../drizzle");
+const mata_kuliah_1 = require("../../drizzle/schema/mata_kuliah");
+const jurusan_1 = require("../../drizzle/schema/jurusan");
+const drizzle_orm_1 = require("drizzle-orm");
+const dosen_1 = require("../../drizzle/schema/dosen");
+const validation_1 = require("../../src/validation");
+class CourseController extends BaseController_1.default {
     async getData(req, res) {
         try {
-            const dataKelas = await drizzle_1.db
+            const dataMataKuliah = await drizzle_1.db
                 .select()
-                .from(kelas_1.kelas)
-                .leftJoin(jurusan_1.jurusan, (0, drizzle_orm_1.eq)(kelas_1.kelas.jurusanId, jurusan_1.jurusan.id))
-                .leftJoin(dosen_1.dosen, (0, drizzle_orm_1.eq)(kelas_1.kelas.dosenId, dosen_1.dosen.id));
-            if (dataKelas.length === 0) {
+                .from(mata_kuliah_1.mataKuliah)
+                .leftJoin(jurusan_1.jurusan, (0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.jurusanId, jurusan_1.jurusan.id))
+                .leftJoin(dosen_1.dosen, (0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.dosenId, dosen_1.dosen.id));
+            if (dataMataKuliah.length === 0) {
                 res.status(200).json({
                     success: false,
-                    message: "Data Kelas tidak ditemukan.",
+                    message: "Data Mata Kuliah  tidak ditemukan.",
                 });
                 return;
             }
             res.status(200).json({
                 success: true,
-                message: "Data Kelas Ditemukan",
-                data: dataKelas,
+                message: "Data Mata Kuliah Ditemukan",
+                data: dataMataKuliah,
             });
         }
-        catch (error) {
-            res.json({
-                message: "Terdapat Kesalahan dalam mengambil data",
-                error: error,
-            });
-        }
+        catch (error) { }
     }
     async createData(req, res) {
         try {
             const request = req.body;
-            const { error, value } = validation_1.kelasValidation.validate(request, {
+            const { error, value } = validation_1.MatKulValidation.validate(request, {
                 abortEarly: false,
             });
             if (error) {
@@ -53,31 +48,31 @@ class KelasController extends BaseController_1.default {
             }
             const exist = await drizzle_1.db
                 .select()
-                .from(kelas_1.kelas)
-                .where((0, drizzle_orm_1.eq)(kelas_1.kelas.nama_kelas, value.nama_kelas));
+                .from(mata_kuliah_1.mataKuliah)
+                .where((0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.nama_matkul, value.nama_matkul));
             if (exist.length === 0) {
                 const createData = await drizzle_1.db
-                    .insert(kelas_1.kelas)
+                    .insert(mata_kuliah_1.mataKuliah)
                     .values({
-                    nama_kelas: value.nama_kelas,
+                    nama_matkul: value.nama_matkul,
                     jurusanId: value.jurusanId,
                     dosenId: value.dosenId,
-                    jumlahMahasiswa: value.jumlahMahasiswa,
+                    kelasId: value.kelasId,
                 })
                     .returning();
                 res.status(200).json({
-                    message: "Data Kelas berhasil Dibuat",
+                    message: "Data Mata Kuliah berhasil Dibuat",
                     data: createData,
                 });
                 return;
             }
             res.status(200).json({
-                message: "Data Kelas Sudah tersedia",
+                message: "Data Mata Kuliah Sudah tersedia",
                 request: value,
             });
         }
         catch (error) {
-            console.log("Kesalahan dalam membuat data Kelas :", error);
+            console.log("Kesalahan dalam membuat data Mata Kuliah :", error);
             res.json({
                 message: "Terdapat Kesalahan dalam membuat data",
                 error: error,
@@ -87,7 +82,7 @@ class KelasController extends BaseController_1.default {
     async updateData(req, res) {
         try {
             const request = req.body;
-            const { error, value } = validation_1.kelasValidation.validate(request, {
+            const { error, value } = validation_1.MatKulValidation.validate(request, {
                 abortEarly: false,
             });
             if (error) {
@@ -99,8 +94,8 @@ class KelasController extends BaseController_1.default {
             }
             const exist = await drizzle_1.db
                 .select()
-                .from(kelas_1.kelas)
-                .where((0, drizzle_orm_1.eq)(kelas_1.kelas.id, parseInt(req.params.id)));
+                .from(mata_kuliah_1.mataKuliah)
+                .where((0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.id, parseInt(req.params.id)));
             if (exist.length === 0) {
                 res.status(200).json({
                     message: "Data Kelas tidak ditemukan",
@@ -108,14 +103,14 @@ class KelasController extends BaseController_1.default {
                 return;
             }
             const updateData = await drizzle_1.db
-                .update(kelas_1.kelas)
+                .update(mata_kuliah_1.mataKuliah)
                 .set({
-                nama_kelas: value.nama_kelas,
+                nama_matkul: value.nama_matkul,
                 jurusanId: value.jurusanId,
                 dosenId: value.dosenId,
-                jumlahMahasiswa: value.jumlahMahasiswa,
+                kelasId: value.kelasId,
             })
-                .where((0, drizzle_orm_1.eq)(kelas_1.kelas.id, parseInt(req.params.id)))
+                .where((0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.id, parseInt(req.params.id)))
                 .returning();
             res.status(200).json({
                 message: "Data Kelas berhasil Diubah",
@@ -134,25 +129,25 @@ class KelasController extends BaseController_1.default {
         try {
             const existingData = await drizzle_1.db
                 .select()
-                .from(kelas_1.kelas)
-                .where((0, drizzle_orm_1.eq)(kelas_1.kelas.id, parseInt(req.params.id)));
+                .from(mata_kuliah_1.mataKuliah)
+                .where((0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.id, parseInt(req.params.id)));
             if (existingData.length === 0) {
                 res.status(404).json({
-                    message: "Data Kelas tidak ditemukan",
+                    message: "Data mata kuliah tidak ditemukan",
                 });
                 return;
             }
             const deletedData = await drizzle_1.db
-                .delete(kelas_1.kelas)
-                .where((0, drizzle_orm_1.eq)(kelas_1.kelas.id, parseInt(req.params.id)))
+                .delete(mata_kuliah_1.mataKuliah)
+                .where((0, drizzle_orm_1.eq)(mata_kuliah_1.mataKuliah.id, parseInt(req.params.id)))
                 .returning();
             res.status(200).json({
-                message: "Data Kelas berhasil dihapus",
+                message: "Data mata kuliah berhasil dihapus",
                 data: deletedData,
             });
         }
         catch (error) {
-            console.error("Error deleting data kelas:", error);
+            console.error("Error deleting data mata kuliah:", error);
             res.status(500).json({
                 success: false,
                 message: "Terdapat Kesalahan dalam menghapus data.",
@@ -160,5 +155,5 @@ class KelasController extends BaseController_1.default {
         }
     }
 }
-exports.default = KelasController;
-//# sourceMappingURL=KelasController.js.map
+exports.default = CourseController;
+//# sourceMappingURL=CourseController.js.map

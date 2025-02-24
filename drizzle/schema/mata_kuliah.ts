@@ -11,6 +11,7 @@ export const mataKuliah = table("mata_kuliah", {
   nama_matkul: item.varchar({ length: 256 }).notNull(),
   dosenId: item.integer().references(() => dosen.id).default(1),
   jurusanId: item.integer().references(() => jurusan.id).default(1),
+
   kelasId: item.integer().references(() => kelas.id).default(1),
 });
 
@@ -20,7 +21,11 @@ export const mataKuliahRelation = relations(mataKuliah, ({ many, one }) => ({
     references: [dosen.id],
   }),
 
-  jurusan: many(jurusan),
+  jurusan: one(jurusan, {
+    fields: [mataKuliah.jurusanId],
+    references: [jurusan.id],
+  }),
+  
   kelas: many(kelas),
   tugas_mahasiswa: many(tugas_mahasiswa),
 }));

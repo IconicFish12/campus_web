@@ -1,48 +1,41 @@
 import { Request, Response } from "express";
-import { db } from "../../drizzle";
-import { kelas } from "../../drizzle/schema/kelas";
-import { kelasValidation } from "../validation";
-import { eq } from "drizzle-orm";
-import { jurusan } from "../../drizzle/schema/jurusan";
-import { dosen } from "../../drizzle/schema/dosen";
 import BaseController from "./BaseController";
+import { db } from "../../drizzle";
+import { mataKuliah } from "../../drizzle/schema/mata_kuliah";
+import { jurusan } from "../../drizzle/schema/jurusan";
+import { eq } from "drizzle-orm";
+import { dosen } from "../../drizzle/schema/dosen";
+import { MatKulValidation } from "../../src/validation";
 
-export default class KelasController extends BaseController {
-
+export default class CourseController extends BaseController {
   async getData(req: Request, res: Response): Promise<void> {
     try {
-      const dataKelas = await db
+      const dataMataKuliah = await db
         .select()
-        .from(kelas)
-        .leftJoin(jurusan, eq(kelas.jurusanId, jurusan.id))
-        .leftJoin(dosen, eq(kelas.dosenId, dosen.id));
+        .from(mataKuliah)
+        .leftJoin(jurusan, eq(mataKuliah.jurusanId, jurusan.id))
+        .leftJoin(dosen, eq(mataKuliah.dosenId, dosen.id));
 
-      if (dataKelas.length === 0) {
+      if (dataMataKuliah.length === 0) {
         res.status(200).json({
           success: false,
-          message: "Data Kelas tidak ditemukan.",
+          message: "Data Mata Kuliah  tidak ditemukan.",
         });
         return;
       }
 
       res.status(200).json({
         success: true,
-        message: "Data Kelas Ditemukan",
-        data: dataKelas,
+        message: "Data Mata Kuliah Ditemukan",
+        data: dataMataKuliah,
       });
-    } catch (error) {
-      res.json({
-        message: "Terdapat Kesalahan dalam mengambil data",
-        error: error,
-      });
-    }
+    } catch (error) {}
   }
-
   async createData(req: Request, res: Response): Promise<void> {
     try {
       const request = req.body;
 
-      const { error, value } = kelasValidation.validate(request, {
+      const { error, value } = MatKulValidation.validate(request, {
         abortEarly: false,
       });
 
@@ -56,45 +49,44 @@ export default class KelasController extends BaseController {
 
       const exist = await db
         .select()
-        .from(kelas)
-        .where(eq(kelas.nama_kelas, value.nama_kelas));
+        .from(mataKuliah)
+        .where(eq(mataKuliah.nama_matkul, value.nama_matkul));
 
       if (exist.length === 0) {
         const createData = await db
-          .insert(kelas)
+          .insert(mataKuliah)
           .values({
-            nama_kelas: value.nama_kelas,
+            nama_matkul: value.nama_matkul,
             jurusanId: value.jurusanId,
             dosenId: value.dosenId,
-            jumlahMahasiswa: value.jumlahMahasiswa,
+            kelasId: value.kelasId,
           })
           .returning();
 
         res.status(200).json({
-          message: "Data Kelas berhasil Dibuat",
+          message: "Data Mata Kuliah berhasil Dibuat",
           data: createData,
         });
         return;
       }
 
       res.status(200).json({
-        message: "Data Kelas Sudah tersedia",
+        message: "Data Mata Kuliah Sudah tersedia",
         request: value,
       });
     } catch (error) {
-      console.log("Kesalahan dalam membuat data Kelas :", error);
+      console.log("Kesalahan dalam membuat data Mata Kuliah :", error);
       res.json({
         message: "Terdapat Kesalahan dalam membuat data",
         error: error,
       });
     }
   }
-
   async updateData(req: Request, res: Response): Promise<void> {
     try {
       const request = req.body;
 
-      const { error, value } = kelasValidation.validate(request, {
+      const { error, value } = MatKulValidation.validate(request, {
         abortEarly: false,
       });
 
@@ -108,8 +100,8 @@ export default class KelasController extends BaseController {
 
       const exist = await db
         .select()
-        .from(kelas)
-        .where(eq(kelas.id, parseInt(req.params.id as string)));
+        .from(mataKuliah)
+        .where(eq(mataKuliah.id, parseInt(req.params.id as string)));
 
       if (exist.length === 0) {
         res.status(200).json({
@@ -118,14 +110,14 @@ export default class KelasController extends BaseController {
         return;
       }
       const updateData = await db
-        .update(kelas)
+        .update(mataKuliah)
         .set({
-          nama_kelas: value.nama_kelas,
+          nama_matkul: value.nama_matkul,
           jurusanId: value.jurusanId,
           dosenId: value.dosenId,
-          jumlahMahasiswa: value.jumlahMahasiswa,
+          kelasId: value.kelasId,
         })
-        .where(eq(kelas.id, parseInt(req.params.id as string)))
+        .where(eq(mataKuliah.id, parseInt(req.params.id as string)))
         .returning();
 
       res.status(200).json({
@@ -140,32 +132,31 @@ export default class KelasController extends BaseController {
       });
     }
   }
-
   async deleteData(req: Request, res: Response): Promise<void> {
     try {
       const existingData = await db
         .select()
-        .from(kelas)
-        .where(eq(kelas.id, parseInt(req.params.id as string)));
+        .from(mataKuliah)
+        .where(eq(mataKuliah.id, parseInt(req.params.id as string)));
 
       if (existingData.length === 0) {
         res.status(404).json({
-          message: "Data Kelas tidak ditemukan",
+          message: "Data mata kuliah tidak ditemukan",
         });
         return;
       }
 
       const deletedData = await db
-        .delete(kelas)
-        .where(eq(kelas.id, parseInt(req.params.id as string)))
+        .delete(mataKuliah)
+        .where(eq(mataKuliah.id, parseInt(req.params.id as string)))
         .returning();
 
       res.status(200).json({
-        message: "Data Kelas berhasil dihapus",
+        message: "Data mata kuliah berhasil dihapus",
         data: deletedData,
       });
     } catch (error) {
-      console.error("Error deleting data kelas:", error)
+      console.error("Error deleting data mata kuliah:", error);
       res.status(500).json({
         success: false,
         message: "Terdapat Kesalahan dalam menghapus data.",

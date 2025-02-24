@@ -1,7 +1,11 @@
 import { Request, Response } from "express";
 
-export default class BaseController {
-  async index(req : Request, res : Response) {
-    res.send("Hello World");
-  }
+export default abstract class BaseController {
+  abstract getData(req : Request, res : Response): Promise<void>
+
+  abstract createData(req : Request, res : Response): Promise<void>
+
+  abstract updateData(req : Request, res : Response): Promise<void>
+
+  abstract deleteData(req : Request, res : Response): Promise<void>
 }

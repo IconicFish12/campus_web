@@ -53,3 +53,22 @@ export const kelasValidation = joi
     jumlahMahasiswa: joi.number().required(),
   })
   .required();
+
+export const MatKulValidation = joi.object({
+  nama_matkul: joi.string().required(),
+  dosenId: joi.number(),
+  jurusanId: joi.number(),
+  kelasId: joi.number(),
+});
+
+export const loginValidation = joi
+  .object({
+    email: joi.string().email().required(),
+    password: joi
+      .string()
+      .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+      .required()
+      .max(15),
+    jenis_kelamin: joi.string(),
+  })
+  .required();
