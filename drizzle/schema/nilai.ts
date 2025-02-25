@@ -7,6 +7,7 @@ export const nilai = table("nilai", {
   id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
   nilai: item.integer().notNull(),
   tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa.id).default(1),
+  comment: item.text()
 });
 
 export const nilaiRelation = relations(nilai, ({ many, one }) => ({

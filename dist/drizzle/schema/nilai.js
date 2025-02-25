@@ -42,6 +42,7 @@ exports.nilai = (0, pg_core_1.pgTable)("nilai", {
     id: item.integer().primaryKey().notNull().generatedAlwaysAsIdentity(),
     nilai: item.integer().notNull(),
     tugasMahasiswaId: item.integer().references(() => tugas_mahasiswa_1.tugas_mahasiswa.id).default(1),
+    comment: item.text()
 });
 exports.nilaiRelation = (0, drizzle_orm_1.relations)(exports.nilai, ({ many, one }) => ({
     tugas_mahasiswa: one(tugas_mahasiswa_1.tugas_mahasiswa, {

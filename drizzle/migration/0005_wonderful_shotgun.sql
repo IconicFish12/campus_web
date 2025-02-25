@@ -1,0 +1,1 @@
+ALTER TABLE "nilai" ADD COLUMN "comment" text;

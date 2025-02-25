@@ -61,6 +61,19 @@ export const MatKulValidation = joi.object({
   kelasId: joi.number(),
 });
 
+export const tugasInputValidation = joi.object({
+  nama_tugas: joi.string().required(),
+  mataKuliahId: joi.number().required(),
+  desc : joi.string().required(),
+  deadline : joi.date().required(),
+});
+
+export const NilaiInputValidation = joi.object({
+  nilai: joi.number().required(),
+  tugasMahasiswaId: joi.number().required(),
+  comment : joi.string()
+});
+
 export const loginValidation = joi
   .object({
     email: joi.string().email().required(),
@@ -69,6 +82,5 @@ export const loginValidation = joi
       .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
       .required()
       .max(15),
-    jenis_kelamin: joi.string(),
   })
   .required();
